@@ -3,10 +3,11 @@
 // ================================
 
 // Contact links (tap -> open). UI එකේ links display වෙන්නේ නෑ.
-const WHATSAPP_LINK = "https://chat.whatsapp.com/JR9zo49Ufl9GvVRjuUSjBx?mode=gi_t";  // <-- PASTE YOUR WHATSAPP LINK HERE (e.g., https://wa.me/94XXXXXXXXX)
-const TELEGRAM_LINK = "https://t.me/Sasi_kyc_1";  // <-- PASTE YOUR TELEGRAM LINK HERE (e.g., https://t.me/yourusername)
+const WHATSAPP_LINK = "https://wa.me/message/P52FQIMNSRYUM1";  // <-- PASTE YOUR WHATSAPP LINK HERE
+const TELEGRAM_LINK = "https://t.me/Sasi_kyc_1";  // <-- PASTE YOUR TELEGRAM LINK HERE
 
 // Logo image URLs (optional)
+// NOTE: If an external logo fails to load, it will automatically fallback to the embedded placeholder.
 const LOGO_URLS = {
   bybit: "https://ibb.co/F4y1LrXH",
   binance: "https://ibb.co/W4PLxbZB",
@@ -14,7 +15,8 @@ const LOGO_URLS = {
   bitget: "https://ibb.co/whj3BkxB",
   hetzner: "https://ibb.co/q3kJQNPp",
   oraclecloud: "https://ibb.co/Yvbz10t",
-  okx: "https://ibb.co/ksQ0rYbB"
+  okx: "https://ibb.co/ksQ0rYbB",
+  xm: "https://ibb.co/v2ZPZ5G"
 };
 
 // Welcome flash config
@@ -65,8 +67,19 @@ function applyLogos(){
   const imgs = document.querySelectorAll('img[data-logo-key]');
   imgs.forEach(img => {
     const key = img.getAttribute('data-logo-key');
+    const placeholder = img.getAttribute('data-placeholder') || img.src;
+
+    // fallback if load fails
+    img.onerror = () => {
+      img.src = placeholder;
+    };
+
     const url = (LOGO_URLS[key] || '').trim();
-    if(url){ img.src = url; }
+    if(url){
+      img.src = url;
+    } else {
+      img.src = placeholder;
+    }
   });
 }
 
