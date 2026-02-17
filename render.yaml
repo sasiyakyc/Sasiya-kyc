@@ -1,0 +1,6 @@
+services:
+  - type: static_site
+    name: sasiya-kyc-verification
+    env: static
+    buildCommand: ""
+    staticPublishPath: .
