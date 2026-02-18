@@ -201,19 +201,12 @@ body{
   border:1px solid rgba(255,255,255,.10);
   background: rgba(0,0,0,.18);
 }
-
 .summary{ margin-top:10px; color:var(--muted); font-size:12px; line-height:1.5; font-weight:750; }
 
 .card-actions{ margin-top:12px; display:flex; gap:10px; }
 .small{ padding:9px 10px; border-radius:12px; font-size:12px; font-weight:900; }
 
-.contact-card{
-  border-radius:18px;
-  padding:14px;
-  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
-  border:1px solid rgba(255,27,58,.34);
-  box-shadow: var(--neon);
-}
+/* CONTACT ITEMS (USED IN MODAL) */
 .contact-grid{ display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:12px; }
 @media (max-width:860px){ .contact-grid{ grid-template-columns:1fr; } }
 
@@ -239,6 +232,7 @@ body{
 .contact-title{ font-weight:950; font-size:13px; }
 .contact-sub{ font-size:11px; color:var(--muted); font-weight:850; margin-top:2px; }
 
+/* TOAST */
 .toast{
   position: fixed;
   left: 50%;
@@ -261,4 +255,60 @@ body{
   text-align:center;
   border-top:1px solid rgba(255,255,255,.06);
   background: rgba(0,0,0,.10);
+}
+
+/* ===== CONTACT MODAL ===== */
+.modal{
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+}
+.modal-backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.65);
+  backdrop-filter: blur(8px);
+}
+.modal-card{
+  position: relative;
+  width: min(680px, calc(100% - 24px));
+  border-radius: 18px;
+  padding: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border: 1px solid rgba(255,27,58,.40);
+  box-shadow: var(--neon-strong), 0 40px 120px rgba(0,0,0,.60);
+}
+.modal-head{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 6px 12px;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.modal-title{
+  font-weight: 950;
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+.modal-body{ padding: 14px 6px 6px; }
+
+.icon-btn{
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  font-weight: 950;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.icon-btn:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255,27,58,.35);
+  box-shadow: var(--neon);
 }
