@@ -1,12 +1,10 @@
 // =======================
 // CONTACT LINKS (UPDATED)
-// - IF A LINK IS EMPTY "", THAT BUTTON WILL BE HIDDEN
-// - MODAL WILL NOT OPEN IF ALL LINKS ARE EMPTY
 // =======================
 const CONTACT_LINKS = {
   WHATSAPP_GROUP: "https://chat.whatsapp.com/JR9zo49Ufl9GvVRjuUSjBx?mode=gi_t",
-  WHATSAPP_CONTACT: "https://wa.me/message/P52FQIMNSRYUM1", // PUT: https://wa.me/9477XXXXXXX
-  TELEGRAM_CONTACT: "https://t.me/Sasi_kyc_1"  // PUT: https://t.me/YOUR_USERNAME
+  WHATSAPP_CONTACT: "", // PUT: https://wa.me/9477XXXXXXX
+  TELEGRAM_CONTACT: ""  // PUT: https://t.me/YOUR_USERNAME
 };
 
 // =======================
@@ -22,7 +20,7 @@ const LOGO_LINKS = {
   BITGET: "https://i.ibb.co/whj3BkxB/2197889f8020488480eeaeef0eced58c.png",
   XM: "https://i.ibb.co/v2ZPZ5G/xm-logo-design-1172241-3953.jpg",
   KAST: "https://i.ibb.co/V0QrBKpf/unnamed.png",
-  TG_WALLET: "https://i.ibb.co/5hKQNvCK/312af9235aadad69655688eaee97eabf.jpg", // SAME AS CRYPTO_BOT (AS YOU SENT)
+  TG_WALLET: "https://i.ibb.co/5hKQNvCK/312af9235aadad69655688eaee97eabf.jpg",
   AVITO: "https://i.ibb.co/7dJgRJss/avito-logo-png-seeklogo-398096.png",
   DIGITAL_OCEAN: "https://i.ibb.co/sJQLHzSG/download.jpg",
   VULTRA: "https://i.ibb.co/DgwY2jRh/6a35fd143876c911b4d0dc219295edd9.jpg",
@@ -63,12 +61,10 @@ function isHttpUrl(s){
   const t = (s || "").trim();
   return t.startsWith("http://") || t.startsWith("https://");
 }
-
 function getLogoUrl(logoKey){
   const url = (LOGO_LINKS[logoKey] || "").trim();
   return isHttpUrl(url) ? url : "";
 }
-
 function fallbackSvg(letter){
   const svg = `
   <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
@@ -93,10 +89,8 @@ let toastTimer = null;
 function flash(text){
   const toast = document.getElementById("toast");
   if(!toast) return;
-
   const title = toast.querySelector(".toast-title");
   if(title) title.textContent = text || "WELCOME TO SASIYA KYC VERIFICATION";
-
   toast.hidden = false;
 
   if(toastTimer) clearTimeout(toastTimer);
@@ -104,7 +98,7 @@ function flash(text){
 }
 
 // =======================
-// OFFER CARDS
+// BUILD OFFER CARD
 // =======================
 function buildCard(offer){
   const card = document.createElement("div");
@@ -113,7 +107,6 @@ function buildCard(offer){
 
   const img = document.createElement("img");
   const logo = getLogoUrl(offer.logoKey);
-
   img.src = logo || fallbackSvg(offer.name.slice(0,1));
   img.alt = `${offer.name} LOGO`;
   img.loading = "lazy";
@@ -151,14 +144,10 @@ function buildCard(offer){
   actions.className = "card-actions";
 
   const a1 = document.createElement("a");
-  a1.className = "btn small btn-ghost flash-link";
+  a1.className = "btn small btn-ghost";
   a1.href = "javascript:void(0)";
-  a1.dataset.flash = "WELCOME TO SASIYA KYC VERIFICATION";
   a1.textContent = "CONTACT";
-  a1.addEventListener("click", (e) => {
-    e.preventDefault();
-    openContactModal();
-  });
+  a1.addEventListener("click", (e) => { e.preventDefault(); openContactModal(); });
 
   const a2 = document.createElement("a");
   a2.className = "btn small btn-primary flash-link";
@@ -174,26 +163,15 @@ function buildCard(offer){
   card.appendChild(actions);
 
   card.addEventListener("click", () => flash("WELCOME TO SASIYA KYC VERIFICATION"));
-  card.addEventListener("keydown", (e) => {
-    if(e.key === "Enter" || e.key === " "){
-      e.preventDefault();
-      flash("WELCOME TO SASIYA KYC VERIFICATION");
-    }
-  });
-
   return card;
 }
 
+// INIT OFFERS
 const grid = document.getElementById("offersGrid");
-if(grid){
-  OFFERS.forEach(o => grid.appendChild(buildCard(o)));
-}
+if(grid) OFFERS.forEach(o => grid.appendChild(buildCard(o)));
 
 // =======================
-// CONTACT MODAL (BUG-FIXED)
-// - NOT STUCK
-// - OPENS ONLY WHEN AT LEAST 1 LINK EXISTS
-// - TOUCH CONTACT => CLOSE MODAL + DIRECT OPEN SAME TAB
+// CONTACT MODAL (CLOSE FIXED 100%)
 // =======================
 const contactBtn = document.getElementById("contactBtn");
 const modal = document.getElementById("contactModal");
@@ -207,70 +185,59 @@ const contactHint = document.getElementById("contactHint");
 
 function lockScroll(lock){
   document.body.style.overflow = lock ? "hidden" : "";
-  document.body.style.touchAction = lock ? "none" : "";
 }
 
 function closeContactModal(){
-  if(!modal) return;
-  modal.hidden = true;
-  modal.setAttribute("aria-hidden", "true");
+  modal.hidden = true;               // works with CSS: .modal[hidden]{display:none!important}
+  modal.setAttribute("aria-hidden","true");
   lockScroll(false);
 }
 
 function openUrlDirect(url){
   closeContactModal();
-  window.location.href = url; // most reliable on mobile
+  window.location.href = url;        // direct open on mobile
 }
 
-function setupContactItem(el, url){
-  if(!el) return false;
+function setupContact(el, url){
   const link = (url || "").trim();
-
   if(!isHttpUrl(link)){
     el.hidden = true;
     return false;
   }
-
   el.hidden = false;
   el.href = link;
   el.target = "_self";
-
-  el.onclick = (e) => {
-    e.preventDefault();
-    openUrlDirect(link);
-  };
-
+  el.onclick = (e) => { e.preventDefault(); openUrlDirect(link); };
   return true;
 }
 
 function openContactModal(){
-  const ok1 = setupContactItem(waGroup, CONTACT_LINKS.WHATSAPP_GROUP);
-  const ok2 = setupContactItem(waContact, CONTACT_LINKS.WHATSAPP_CONTACT);
-  const ok3 = setupContactItem(tgContact, CONTACT_LINKS.TELEGRAM_CONTACT);
+  const ok1 = setupContact(waGroup, CONTACT_LINKS.WHATSAPP_GROUP);
+  const ok2 = setupContact(waContact, CONTACT_LINKS.WHATSAPP_CONTACT);
+  const ok3 = setupContact(tgContact, CONTACT_LINKS.TELEGRAM_CONTACT);
 
   if(!(ok1 || ok2 || ok3)){
+    if(contactHint) contactHint.hidden = false;
     flash("CONTACT DETAILS NOT AVAILABLE");
     return;
   }
-
   if(contactHint) contactHint.hidden = true;
 
   modal.hidden = false;
-  modal.setAttribute("aria-hidden", "false");
+  modal.setAttribute("aria-hidden","false");
   lockScroll(true);
-
   flash("WELCOME TO SASIYA KYC VERIFICATION");
 }
 
 if(contactBtn) contactBtn.addEventListener("click", openContactModal);
 if(modalBackdrop) modalBackdrop.addEventListener("click", closeContactModal);
-if(modalCloseBtn) modalCloseBtn.addEventListener("click", closeContactModal);
+if(modalCloseBtn) modalCloseBtn.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); closeContactModal(); });
 
 document.addEventListener("keydown", (e) => {
   if(e.key === "Escape" && modal && !modal.hidden) closeContactModal();
 });
 
-// FLASH ON ANY LINK CLICK
+// FLASH ON LINKS
 document.addEventListener("click", (e) => {
   const el = e.target.closest(".flash-link");
   if(!el) return;
