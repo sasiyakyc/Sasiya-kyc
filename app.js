@@ -1,42 +1,38 @@
 // =======================
-// 1) CONTACT LINKS (REPLACE THESE)
+// CONTACT LINKS (PUT YOUR REAL LINKS HERE)
+// Leave "" to hide that contact button.
 // =======================
 const CONTACT_LINKS = {
-  WHATSAPP_GROUP: "PASTE_WHATSAPP_GROUP_LINK_HERE",
-  WHATSAPP_CONTACT: "PASTE_WHATSAPP_CONTACT_LINK_HERE",
-  TELEGRAM_CONTACT: "PASTE_TELEGRAM_CONTACT_LINK_HERE"
+  WHATSAPP_GROUP: "https://chat.whatsapp.com/JR9zo49Ufl9GvVRjuUSjBx?mode=gi_t",     // EX: "https://chat.whatsapp.com/XXXXXXXXXXXX"
+  WHATSAPP_CONTACT: "https://wa.me/message/P52FQIMNSRYUM1",   // EX: "https://wa.me/94771234567"
+  TELEGRAM_CONTACT: "https://t.me/Sasi_kyc_1"    // EX: "https://t.me/YOUR_USERNAME"
 };
 
 // =======================
-// 2) LOGO LINKS SPACE (PASTE DIRECT IMAGE LINKS HERE)
-// IMPORTANT: USE DIRECT IMAGE URL (EX: https://i.ibb.co/.../logo.png)
-// DO NOT USE: https://ibb.co/xxxx (THAT IS A PAGE LINK)
+// LOGO LINKS (ADDED AS YOU SENT)
 // =======================
 const LOGO_LINKS = {
-  BINANCE: "PASTE_BINANCE_DIRECT_IMAGE_LINK_HERE",
-  BYBIT: "PASTE_BYBIT_DIRECT_IMAGE_LINK_HERE",
-  OKX: "PASTE_OKX_DIRECT_IMAGE_LINK_HERE",
-  CRYPTO_BOT: "PASTE_CRYPTO_BOT_DIRECT_IMAGE_LINK_HERE",
-  HATZNER: "PASTE_HATZNER_DIRECT_IMAGE_LINK_HERE",
-  ORACAL_CLOUD: "PASTE_ORACAL_CLOUD_DIRECT_IMAGE_LINK_HERE",
-  BITGET: "PASTE_BITGET_DIRECT_IMAGE_LINK_HERE",
-  XM: "PASTE_XM_DIRECT_IMAGE_LINK_HERE",
-  KAST: "PASTE_KAST_DIRECT_IMAGE_LINK_HERE",
-  TG_WALLET: "PASTE_TG_WALLET_DIRECT_IMAGE_LINK_HERE",
-  AVITO: "PASTE_AVITO_DIRECT_IMAGE_LINK_HERE",
-  DIGITAL_OCEAN: "PASTE_DIGITAL_OCEAN_DIRECT_IMAGE_LINK_HERE",
-  VULTRA: "PASTE_VULTRA_DIRECT_IMAGE_LINK_HERE",
-  ATLANTIC: "PASTE_ATLANTIC_DIRECT_IMAGE_LINK_HERE",
-  AZURE: "PASTE_AZURE_DIRECT_IMAGE_LINK_HERE",
-  GOOGLE_CLOUD: "PASTE_GOOGLE_CLOUD_DIRECT_IMAGE_LINK_HERE",
-  AWS: "PASTE_AWS_DIRECT_IMAGE_LINK_HERE",
-
-  // OPTIONAL: IF YOU WANT A DEFAULT LOGO WHEN MISSING
-  DEFAULT: ""
+  BINANCE: "https://i.ibb.co/W4PLxbZB/binance-logo-free-download-free-vector.jpg",
+  BYBIT: "https://i.ibb.co/F4y1LrXH/w9-AEc-EL8-400x400.jpg",
+  OKX: "https://i.ibb.co/ksQ0rYbB/Logo-OKX.png",
+  CRYPTO_BOT: "https://i.ibb.co/5hKQNvCK/312af9235aadad69655688eaee97eabf.jpg",
+  HATZNER: "https://i.ibb.co/q3kJQNPp/Fahim-AI-7-22.png",
+  ORACAL_CLOUD: "https://i.ibb.co/Yvbz10t/oracle-erp-cloud-logo-png-seeklogo-430989.png",
+  BITGET: "https://i.ibb.co/whj3BkxB/2197889f8020488480eeaeef0eced58c.png",
+  XM: "https://i.ibb.co/v2ZPZ5G/xm-logo-design-1172241-3953.jpg",
+  KAST: "https://i.ibb.co/V0QrBKpf/unnamed.png",
+  TG_WALLET: "https://i.ibb.co/5hKQNvCK/312af9235aadad69655688eaee97eabf.jpg",  // SAME AS CRYPTO_BOT (AS YOU SENT)
+  AVITO: "https://i.ibb.co/7dJgRJss/avito-logo-png-seeklogo-398096.png",
+  DIGITAL_OCEAN: "https://i.ibb.co/sJQLHzSG/download.jpg",
+  VULTRA: "https://i.ibb.co/DgwY2jRh/6a35fd143876c911b4d0dc219295edd9.jpg",
+  ATLANTIC: "https://i.ibb.co/QvgYMzw3/anet-pci-logo.png",
+  AZURE: "https://i.ibb.co/fGZ7Rqf5/microsoft-azure-logo-png-seeklogo-326269.png",
+  GOOGLE_CLOUD: "https://i.ibb.co/r2d45gwc/images.png",
+  AWS: "https://i.ibb.co/CpqhYL4f/images.jpg"
 };
 
 // =======================
-// 3) OFFERS
+// OFFERS
 // =======================
 const OFFERS = [
   { name: "BYBIT", price: "3$-4$", summary: "KYC VERIFICATION PACKAGE FOR BYBIT. FAST PROCESSING.", logoKey: "BYBIT" },
@@ -59,9 +55,6 @@ const OFFERS = [
   { name: "KAST", price: "2$", summary: "KAST RELATED PACKAGE.", logoKey: "KAST" }
 ];
 
-// =======================
-// HELPERS
-// =======================
 function fallbackSvg(letter){
   const svg = `
   <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
@@ -79,16 +72,16 @@ function fallbackSvg(letter){
   return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
 }
 
+function isHttpUrl(s){
+  const t = (s || "").trim();
+  return t.startsWith("http://") || t.startsWith("https://");
+}
 function getLogoUrl(logoKey){
-  const url = LOGO_LINKS[logoKey];
-  if(url && url.startsWith("http")) return url;
-  if(LOGO_LINKS.DEFAULT && LOGO_LINKS.DEFAULT.startsWith("http")) return LOGO_LINKS.DEFAULT;
-  return "";
+  const url = (LOGO_LINKS[logoKey] || "").trim();
+  return isHttpUrl(url) ? url : "";
 }
 
-// =======================
 // FLASH TOAST
-// =======================
 let toastTimer = null;
 function flash(text){
   const toast = document.getElementById("toast");
@@ -100,9 +93,6 @@ function flash(text){
   toastTimer = setTimeout(() => { toast.hidden = true; }, 1500);
 }
 
-// =======================
-// UI BUILD
-// =======================
 function buildCard(offer){
   const card = document.createElement("div");
   card.className = "card";
@@ -149,9 +139,10 @@ function buildCard(offer){
 
   const a1 = document.createElement("a");
   a1.className = "btn small btn-ghost flash-link";
-  a1.href = "#contact";
+  a1.href = "javascript:void(0)";
   a1.dataset.flash = "WELCOME TO SASIYA KYC VERIFICATION";
   a1.textContent = "CONTACT";
+  a1.addEventListener("click", (e) => { e.preventDefault(); openContactModal(); });
 
   const a2 = document.createElement("a");
   a2.className = "btn small btn-primary flash-link";
@@ -181,22 +172,51 @@ function buildCard(offer){
 const grid = document.getElementById("offersGrid");
 OFFERS.forEach(o => grid.appendChild(buildCard(o)));
 
-// CONTACT TOGGLE
+// CONTACT MODAL
 const contactBtn = document.getElementById("contactBtn");
-const contactCard = document.getElementById("contactCard");
+const modal = document.getElementById("contactModal");
+const modalBackdrop = document.getElementById("modalBackdrop");
+const modalCloseBtn = document.getElementById("modalCloseBtn");
 
-contactBtn.addEventListener("click", () => {
-  contactCard.hidden = !contactCard.hidden;
-  flash("WELCOME TO SASIYA KYC VERIFICATION");
-  if(!contactCard.hidden){
-    contactCard.scrollIntoView({ behavior: "smooth", block: "center" });
+const waGroup = document.getElementById("waGroup");
+const waContact = document.getElementById("waContact");
+const tgContact = document.getElementById("tgContact");
+const contactHint = document.getElementById("contactHint");
+
+function setContactLink(el, url){
+  if(isHttpUrl(url)){
+    el.href = url.trim();
+    el.hidden = false;
+    return true;
   }
-});
+  el.hidden = true;
+  return false;
+}
 
-// SET CONTACT LINKS
-document.getElementById("waGroup").href = CONTACT_LINKS.WHATSAPP_GROUP;
-document.getElementById("waContact").href = CONTACT_LINKS.WHATSAPP_CONTACT;
-document.getElementById("tgContact").href = CONTACT_LINKS.TELEGRAM_CONTACT;
+function openContactModal(){
+  const ok1 = setContactLink(waGroup, CONTACT_LINKS.WHATSAPP_GROUP);
+  const ok2 = setContactLink(waContact, CONTACT_LINKS.WHATSAPP_CONTACT);
+  const ok3 = setContactLink(tgContact, CONTACT_LINKS.TELEGRAM_CONTACT);
+
+  contactHint.hidden = (ok1 || ok2 || ok3);
+
+  modal.hidden = false;
+  modal.setAttribute("aria-hidden", "false");
+  flash("WELCOME TO SASIYA KYC VERIFICATION");
+}
+
+function closeContactModal(){
+  modal.hidden = true;
+  modal.setAttribute("aria-hidden", "true");
+}
+
+contactBtn.addEventListener("click", openContactModal);
+modalBackdrop.addEventListener("click", closeContactModal);
+modalCloseBtn.addEventListener("click", closeContactModal);
+
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape" && !modal.hidden) closeContactModal();
+});
 
 // FLASH ON ANY LINK CLICK
 document.addEventListener("click", (e) => {
