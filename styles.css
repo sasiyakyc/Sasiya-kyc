@@ -2,7 +2,6 @@
   --bg:#050509;
   --text:#f4f4ff;
   --muted:#b9b9d6;
-  --red:#ff1b3a;
   --shadow: 0 18px 55px rgba(0,0,0,.55);
   --neon: 0 0 10px rgba(255,27,58,.45), 0 0 22px rgba(255,27,58,.25);
   --neon-strong: 0 0 12px rgba(255,27,58,.7), 0 0 30px rgba(255,27,58,.35);
@@ -173,7 +172,6 @@ body{
   transform: perspective(1000px) rotateX(5deg) rotateY(-6deg) translateY(-2px);
   box-shadow: var(--neon-strong), 0 30px 80px rgba(0,0,0,.55);
 }
-
 .card-top{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
 
 .logo{
@@ -202,11 +200,10 @@ body{
   background: rgba(0,0,0,.18);
 }
 .summary{ margin-top:10px; color:var(--muted); font-size:12px; line-height:1.5; font-weight:750; }
-
 .card-actions{ margin-top:12px; display:flex; gap:10px; }
 .small{ padding:9px 10px; border-radius:12px; font-size:12px; font-weight:900; }
 
-/* CONTACT ITEMS (USED IN MODAL) */
+/* CONTACT ITEMS */
 .contact-grid{ display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:12px; }
 @media (max-width:860px){ .contact-grid{ grid-template-columns:1fr; } }
 
@@ -257,7 +254,7 @@ body{
   background: rgba(0,0,0,.10);
 }
 
-/* ===== CONTACT MODAL ===== */
+/* MODAL */
 .modal{
   position: fixed;
   inset: 0;
@@ -265,12 +262,15 @@ body{
   display: grid;
   place-items: center;
 }
+.modal[hidden]{ display:none !important; } /* IMPORTANT FIX */
+
 .modal-backdrop{
   position: absolute;
   inset: 0;
   background: rgba(0,0,0,.65);
   backdrop-filter: blur(8px);
 }
+
 .modal-card{
   position: relative;
   width: min(680px, calc(100% - 24px));
@@ -280,6 +280,7 @@ body{
   border: 1px solid rgba(255,27,58,.40);
   box-shadow: var(--neon-strong), 0 40px 120px rgba(0,0,0,.60);
 }
+
 .modal-head{
   display:flex;
   align-items:center;
@@ -288,11 +289,7 @@ body{
   padding: 6px 6px 12px;
   border-bottom: 1px solid rgba(255,255,255,.07);
 }
-.modal-title{
-  font-weight: 950;
-  letter-spacing: 1px;
-  font-size: 14px;
-}
+.modal-title{ font-weight:950; letter-spacing:1px; font-size:14px; }
 .modal-body{ padding: 14px 6px 6px; }
 
 .icon-btn{
