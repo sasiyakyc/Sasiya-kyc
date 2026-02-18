@@ -3,8 +3,8 @@
 // =======================
 const CONTACT_LINKS = {
   WHATSAPP_GROUP: "https://chat.whatsapp.com/JR9zo49Ufl9GvVRjuUSjBx?mode=gi_t",
-  WHATSAPP_CONTACT: "", // PUT: https://wa.me/9477XXXXXXX
-  TELEGRAM_CONTACT: ""  // PUT: https://t.me/YOUR_USERNAME
+  WHATSAPP_CONTACT: "https://wa.me/message/P52FQIMNSRYUM1", // PUT: https://wa.me/9477XXXXXXX
+  TELEGRAM_CONTACT: "https://t.me/Sasi_kyc_1"  // PUT: https://t.me/YOUR_USERNAME
 };
 
 // =======================
